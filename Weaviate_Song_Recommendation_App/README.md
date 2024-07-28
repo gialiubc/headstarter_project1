@@ -1,11 +1,10 @@
-# Song Recommendation Using Weaviate Vector Database 
+# Song Recommendation Using Vector Database 
 
 <img width="1726" alt="Screenshot 2024-06-05 at 14 40 11" src="https://github.com/gialiubc/Weaviate_Song_Recommendation_App/assets/141379548/2da80a6a-ad75-4c82-a459-cb640f17b527">
 
 ## Overview
-This project is a response to Weaviate's Machine Learning Engineer Challenge, Track 1 and Track 2.1.
 
-In this project, a web app is created to get song recommendations to user's playlist with the search from two million songs that are vectorized and stored in Weaviate vector database. What you'll expect in this project:
+In this project, a web app is created to get song recommendations to user's playlist with the search from approximately two million songs that are stored in a vector database. What you'll expect in this project:
 
 - Part 1 Data Manipulation: Data cleaning, transformation, and loading into weaviate vector database. I use my own vectors (Embeddings).
 - Part 2 Similarity Search: Perform similarity search with an user input of a playlist and find from the database 20 songs that are most similar to the songs from the user's playlist. This would make the recommendation.
@@ -22,24 +21,10 @@ I have upload all the files and folders that I used to create the app. Everythin
   - templates folder : includes index.html for landing page and result.html for song recommendation result page;
   - Resources folder : includes a scaler saved for scaling the vectors.
 
-## Data ETL and Vector Database
-The data used for this project is based on the project Jammin'_With_Spotify. The data is slightly modified in order to adjust to this project. The original ETL of the dataset will not be explained here, and for more details please go to https://github.com/gialiubc/Jammin_With_Spotify/tree/main.
-
-Each song track has feautres such as danceability, energy, key, mode (minor or major), speechiness, acousticness, instrumentalness, liveness, valence, tempo, duration_ms, and time_signature (beats per bar), which is considered to be its 'numerical' representation, so we use these features as its search vectors.
-
-Therefore, we create two datasets as output. One contains the scaled track features (embeddings) as vector information of each track. The other one contains track information such as track uri, track_href etc.
-
-- scaled_vec_tracks.csv data file :
-  - Vector Columns: 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms','key_none', 'key_0', 'key_1', 'key_2', 'key_3', 'key_4', 'key_5', 'key_6', 'key_7', 'key_8', 'key_9', 'key_10', 'key_11', 'mode_minor', 'mode_major', 'time_signature_0', 'time_signature_1', 'time_signature_2', 'time_signature_3', 'time_signature_4', 'time_signature_5', 'time_signature_6', 'time_signature_7'
-- vec_tracks.csv data file :
-  - Vector Columns + 'id', 'track_uri','track_href','analysis_url'
-
-Since there are over two million tracks in total, loading the vectors into the database may take a while.
-
 ## Similarity Search for Recommendations
-After we set up the database, we can start performing the similarity search. We need an user playlist input, which is the playlist uri we can find in our Spotify playlist. We perform an aggregation on all the tracks in the playlist by calculating the mean of the track features excluding 'mode', 'key', 'time signature'. 'mode', 'key', 'time signature' are more like categorical data so we use dummy variables to represent them. The same approach is used when creating the track vectors.
+Once you enter the playlist URL, we will call Spotify API to retrieve information of the songs in the playlist and perform a similiarity search on our database.
 
-The vector database returns us with 20 songs that has the shortest distance (most similar) to the input vector. We use these recommended songs to give recommendation and visualize a application page with album cover and 10-20 second audio preview.
+The database returns us with 20 songs that has the shortest distance (most similar) to the input vector. We use these recommended songs to give recommendation and visualize a application page with album cover and 10-20 second audio preview.
 
 ## Step-By-Stepy Instructions of the App
 - Step 1 : Go to spotify playlist, click on the '...' (three dots), click on 'Share' and click on 'Copy Link To Playlist'. This will copy the playlist uri.
