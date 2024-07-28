@@ -39,5 +39,3 @@ The database returns us with 20 songs that has the shortest distance (most simil
 <img width="1473" alt="Screenshot 2024-06-05 at 15 48 29" src="https://github.com/gialiubc/Weaviate_Song_Recommendation_App/assets/141379548/777b222d-c0df-40ce-9d9f-48b8e93095b6">
 
 
-## Disclaimer
-This project is based on my other group project 'Jammin_With_Spotify'. Please contact me if you have any questions.
